@@ -1,29 +1,24 @@
 fix_dhcp_hack
 =============
 
-What can I say, despite all efforts to keep network interface device
-names persistent, sometimes this does not work. You boot up a system
-with a new kernel and somehow the device name changes. When doing Linux
-kernel development we may sometimes not really care about the device name
-change, even if it is a bug, whether that be in userspace or kernelspace.
+On certain distributions you may end up with a situation where your network
+interfaces do not get dhcp called for them for one bug reason or another bug
+reason. This ansible tries to address this from a distribution agnostic
+perspective. Each distribution can have their own solution.
 
-Networking guys may care, but if your focus is on another subsystem you *may*
-not want to bother with this issue and just want to get your network interfaces
-up. If you have a controlled environment and you *know* all interfaces exposed
-other than loopback should call DHCP this ansible role will solve those woes
-for you.
+Since only distro with issues at this time is debian, this role won't do
+anything on other distros.
 
-This hack is intended only to be used for *careless*, *throw away* development
-environments by essentially always requiring DHCP on all interfaces exposed
-other than your loopback interface.
+# Known issues
 
-The issue has been observed with debian testing as of August 16, 2019, and
-then booting into linux-next next-20190816. Since only debian is known to
-have this issue at this point, all other distros won't be affected if this
-role is enabled for them.
+## Debian
 
-How booting into a new kernel could have exposed this issue is beyond me at
-this point. If I have time I may look into it...
+debian testing as of August 16, 2019 does *not* properly update
+`/etc/network/interfaces`. Upon reboot you won't get DHCP. This is odd
+given that even though you start up with the enp6s0 network interaface
+and there are no entries for it under `/etc/network/interfaces/` you still
+get DHCP on the interface after initial bring up. Upon reboot though you
+won't be able to ssh in though, as dhcp won't be called for the interface.
 
 Requirements
 ------------
