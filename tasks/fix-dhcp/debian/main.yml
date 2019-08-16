@@ -17,14 +17,11 @@
     mode: "755"
   tags: [ 'dhcp', 'hack' ]
 
-- name: Reload systemd daemon
-  systemd:
-    daemon_reload: yes
-
 - name: Enable fix-dhcp systemd hack
   become: yes
   become_method: sudo
   systemd:
+    daemon_reload: yes
     name: "fix-dhcp-hack"
     enabled: yes
   tags: [ 'systemd', 'dhcp', 'hack' ]
