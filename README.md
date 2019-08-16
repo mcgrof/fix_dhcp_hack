@@ -23,7 +23,8 @@ None.
 Role Variables
 --------------
 
-  * enable_dhcp_hack: set to true, set it to false to disable this hack
+  * enable_dhcp_hack: set to false by defaul, set this to true in your
+    project if you really know and have vetted you can use this.
 
 Dependencies
 ------------
