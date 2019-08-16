@@ -5,6 +5,8 @@ ConditionPathExists=/usr/local/bin/fix-dhcp-hack.sh
 [Service]
 Type=forking
 ExecStart=/usr/local/bin/fix-dhcp-hack.sh
+WantedBy=networking.service
+
 TimeoutSec=0
 StandardOutput=tty
 RemainAfterExit=yes
