@@ -5,15 +5,22 @@ What can I say, despite all efforts to keep network interface device
 names persistent, sometimes this does not work. You boot up a system
 with a new kernel and somehow the device name changes. When doing Linux
 kernel development we may sometimes not really care about the device name
-change, even if it is a bug. Networking guys may care, but if your focus
-is on another subsystem you really don't want to bother with this issue
-and just want to get your network interfaces up. If you have a controlled
-environment and you *know* all interfaces exposed other than loopback should
-call DHCP this ansible role will solve those woes for you.
+change, even if it is a bug, whether that be in userspace or kernelspace.
 
-This hack is supposed to address for *careless*, *throw away* development
+Networking guys may care, but if your focus is on another subsystem you *may*
+not want to bother with this issue and just want to get your network interfaces
+up. If you have a controlled environment and you *know* all interfaces exposed
+other than loopback should call DHCP this ansible role will solve those woes
+for you.
+
+This hack is intended only to be used for *careless*, *throw away* development
 environments by essentially always requiring DHCP on all interfaces exposed
 other than your loopback interface.
+
+The issue has been observed with debian testing as of August 16, 2019, and
+then booting into linux-next next-20190816. How booting into a new kernel
+could have exposed this issue is beyond me at this point. If I have time
+I may look into it...
 
 Requirements
 ------------
