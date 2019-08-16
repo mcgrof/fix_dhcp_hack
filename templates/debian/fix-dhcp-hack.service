@@ -1,0 +1,14 @@
+[Unit]
+Description=Super careless DHCP hack in case device names change
+ConditionPathExists=/usr/local/bin/fix-dhcp-hack.sh
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bin/fix-dhcp-hack.sh
+TimeoutSec=0
+StandardOutput=tty
+RemainAfterExit=yes
+SysVStartPriority=99
+
+[Install]
+WantedBy=multi-user.target

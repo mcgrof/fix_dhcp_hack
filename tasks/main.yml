@@ -1,0 +1,6 @@
+---
+# This DHCP distro hack *is* distribution specific
+- name: Install script to fix DHCP carelessly and hope for the best always
+  import_tasks: fix-dhcp/main.yml
+  when:
+    - enable_dhcp_hack

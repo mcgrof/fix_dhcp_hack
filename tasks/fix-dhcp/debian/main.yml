@@ -1,0 +1,57 @@
+---
+# Install dhcp hack for Debian
+- name: Install fix-dhcp-hack systemd service unit file
+  become: yes
+  become_method: sudo
+  template:
+    src: debian/fix-dhcp-hack.service
+    dest: /etc/systemd/system/fix-dhcp-hack.service
+  tags: [ 'dhcp', 'hack' ]
+
+- name: Install fix-dhcp-hack script to be run
+  become: yes
+  become_method: sudo
+  template:
+    src: debian/fix-dhcp-hack.sh
+    dest: /usr/local/bin/fix-dhcp-hack.sh
+    mode: "755"
+  tags: [ 'dhcp', 'hack' ]
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes
+
+- name: Enable fix-dhcp systemd hack
+  become: yes
+  become_method: sudo
+  systemd:
+    name: "fix-dhcp-hack"
+    enabled: yes
+  tags: [ 'systemd', 'dhcp', 'hack' ]
+
+- name: Install our generic dependencies
+  become: yes
+  become_method: sudo
+  apt:
+    name:
+      - nvme-cli
+      - bison
+      - flex
+      - git
+      - e2fsprogs
+      - xfsprogs
+      - xfsdump
+      - lvm2
+      - gcc
+      - make
+      - gawk
+      - bc
+      - dump
+      - indent
+      - libtool
+      - psmisc
+      - sed
+      - vim
+    state: present
+    update_cache: yes
+  tags: [ 'kdevops', 'deps' ]
